@@ -1,5 +1,5 @@
 ;-------------------------------------------------------------------------------
-;410,�|�����Ɏ󂯂�Z�N�n��
+;410,掃除中に受けるセクハラ
 ;-------------------------------------------------------------------------------
 @SOJI_SexHara
 	VARSET LOCAL
@@ -27,54 +27,54 @@
 RETURN 0
 
 ;-------------------------------------------------------------------------------
-;����
-;@param ��Q�� �ΏۂƂȂ�L�����N�^�[�ԍ�
-@SOJI_SexHara_Easy(��Q��)
-	#DIM ��Q��
+;視姦
+;@param 被害者 対象となるキャラクター番号
+@SOJI_SexHara_Easy(被害者)
+	#DIM 被害者
 	VARSET LOCAL
-	PRINTFORML %CALLNAME:��Q��%���|�������Ă���ƁA�Ȃɂ��w��ɋC�z��������
-	PRINT [0] - �ӂ肩���� [1] - �C�ɂ���ȁI
+	PRINTFORML %CALLNAME:被害者%が掃除をしていると、なにやら背後に気配を感じた
+	PRINT [0] - ふりかえる [1] - 気にするな！
 	$INPUT_LOOP_1
 	INPUT
 	SIF RESULT != 0 && RESULT != 1
 		GOTO INPUT_LOOP_1
 	IF !RESULT
-		PRINTFORML %CALLNAME:��Q��%���ӂ肩����ƁA%NTR_NAME(0)%�����Ȃ��̔w��ɗ����Ă���
-		IF CFLAG:��Q��:�����x > 200 ;�����x�������ꍇ�͉䖝���邵���Ȃ�
-			PRINTFORML �Ȃɂ��p�ł��傤���A�Ɛq�˂��%NTR_NAME(0)%�͂ɂ���Ȃ���%CALLNAME:��Q��%�ɑ|���𑱂���悤�ɖ�����
-			PRINT [0] - ���܂񂷂�
+		PRINTFORML %CALLNAME:被害者%がふりかえると、%NTR_NAME(0)%があなたの背後に立っている
+		IF CFLAG:被害者:屈服度 > 200 ;屈服度が高い場合は我慢するしかない
+			PRINTFORML なにか用でしょうか、と尋ねると%NTR_NAME(0)%はにやつきながら%CALLNAME:被害者%に掃除を続けるように命じた
+			PRINT [0] - がまんする
 			INPUT
 		ELSE
-			PRINTFORML �Ȃɂ��p�ł��傤���A�Ɛq�˂��%NTR_NAME(0)%�͂ɂ���Ȃ��狗�����Ƃ��Ă�����
+			PRINTFORML なにか用でしょうか、と尋ねると%NTR_NAME(0)%はにやつきながら距離をとっていった
 			RETURN 1
 		ENDIF
 	ENDIF
 RETURN 0
 
 ;-------------------------------------------------------------------------------
-;�������
-;@param ��Q�� �ΏۂƂȂ�L�����N�^�[�ԍ�
-@SOJI_SexHara_Normal(��Q��)
-	#DIM ��Q��
+;おさわり
+;@param 被害者 対象となるキャラクター番号
+@SOJI_SexHara_Normal(被害者)
+	#DIM 被害者
 	#DIM V_MIN
 	#DIM V_MAX
-	#DIM �␳�l
+	#DIM 補正値
 	VARSET LOCAL
-	IF CFLAG:��Q��:�����x > 200 ;�����x�������ꍇ
-		PRINTFORML %CALLNAME:��Q��%���|���𑱂��Ă����%NTR_NAME(0)%�����̕ӂ�𕏂łĂ���
-		PRINTFORML �䖝�ł����ɂӂ肩����ƁA%NTR_NAME(0)%�͂��Ȃ��̍���K�𕏂ŉ񂵂Ȃ���|���𑱂���悤�ɑ�����
+	IF CFLAG:被害者:屈服度 > 200 ;屈服度が高い場合
+		PRINTFORML %CALLNAME:被害者%が掃除を続けていると%NTR_NAME(0)%が腰の辺りを撫でてきた
+		PRINTFORML 我慢できずにふりかえると、%NTR_NAME(0)%はあなたの腰や尻を撫で回しながら掃除を続けるように促した
 	ELSE
-		PRINTFORML %CALLNAME:��Q��%���C�̂������Ǝv���|���𑱂��Ă���ƒN�������̕ӂ�𕏂łĂ���
-		PRINTFORML �ӂ肩�����%NTR_NAME(0)%���}�炵���΂݂𕂂��ׂȂ��炠�Ȃ��̍���K�𕏂ŉ񂵂Ă���
+		PRINTFORML %CALLNAME:被害者%が気のせいだと思い掃除を続けていると誰かが腰の辺りを撫でてきた
+		PRINTFORML ふりかえると%NTR_NAME(0)%が厭らしい笑みを浮かべながらあなたの腰や尻を撫で回している
 	ENDIF
 	V_MIN = 1
 	V_MAX = 1
-	IF TALENT:��Q��:���O�֏� ;���O�֏�������󂯓���Ȃ��Ƃ�
-		PRINT [1] - �󂯓����
-	ELSEIF CFLAG:��Q��:�����x > 400 ;�����x�������ꍇ�䖝���邵���Ȃ�
-		PRINT [1] - ����������
+	IF TALENT:被害者:公衆便所 ;公衆便所だから受け入れないとね
+		PRINT [1] - 受け入れる
+	ELSEIF CFLAG:被害者:屈服度 > 400 ;屈服度が高い場合我慢するしかない
+		PRINT [1] - 無視をする
 	ELSE
-		PRINT [0] - �U�蕥�� [1] - ����������
+		PRINT [0] - 振り払う [1] - 無視をする
 		V_MIN = 0
 	ENDIF
 	$INPUT_LOOP_1
@@ -84,133 +84,133 @@ RETURN 0
 	SIF RESULT < V_MIN || V_MAX < RESULT
 		GOTO INPUT_LOOP_1
 	IF !RESULT
-		PRINTFORML %CALLNAME:��Q��%�����U�蕥���A��߂�悤�ɓ`�����
-		PRINTFORML %NTR_NAME(0)%�͌���ł͎ӂ�A��قǂ܂ŐK�ɐG��Ă���
-		PRINTFORML ���������Ȃ���%CALLNAME:��Q��%���痣��Ă�����
-		SOURCE:��Q��:���y = 100
-		SOURCE:��Q��:�I�o = 100
-		SOURCE:��Q��:�~�� = 100 + 200 * ABL:��Q��:�~�]
-		SOURCE:��Q��:�� = 100 + 200 * ABL:��Q��:�]��
-		RETURN 1 ;�{��ꂽ�̂ł����܂�
+		PRINTFORML %CALLNAME:被害者%が手を振り払い、やめるように伝えると
+		PRINTFORML %NTR_NAME(0)%は口先では謝りつつ、先ほどまで尻に触れていた
+		PRINTFORML 手をさすりながら%CALLNAME:被害者%から離れていった
+		SOURCE:被害者:歓楽 = 100
+		SOURCE:被害者:露出 = 100
+		SOURCE:被害者:欲情 = 100 + 200 * ABL:被害者:欲望
+		SOURCE:被害者:受動 = 100 + 200 * ABL:被害者:従順
+		RETURN 1 ;怒られたのでここまで
 	ELSE
-		�␳�l = 0
-		IF TALENT:��Q��:���O�֏�
-			;�o�����X�K���Ȃ̂Œʏ펞��+50�ŏ����B��C���ǉ��B�\�[�X�̒l�͗v����
-			IF TEQUIP:��Q��:�㔼�g���ߏ� > 1
-				PRINTFORML %CALLNAME:��Q��%���킴�Ƃ炵���������J���đ|���𑱂����
-				PRINTFORML %NTR_NAME(0)%�͉����������̒��Ɏ��L�΂��Ă����c�c
+		補正値 = 0
+		IF TALENT:被害者:公衆便所
+			;バランス適当なので通常時の+50で処理。快Cも追加。ソースの値は要調整
+			IF TEQUIP:被害者:上半身着衣状況 > 1
+				PRINTFORML %CALLNAME:被害者%がわざとらしく胸元を開いて掃除を続けると
+				PRINTFORML %NTR_NAME(0)%は遠慮無く服の中に手を伸ばしてきた……
 			ELSE
-				PRINTFORML %CALLNAME:��Q��%�������Ƃ���֘r��L�΂��ċ��𖳖h���ɂ����
-				PRINTFORML %NTR_NAME(0)%�͉����������Ɏ��L�΂��Ă����c�c
+				PRINTFORML %CALLNAME:被害者%が高いところへ腕を伸ばして胸を無防備にすると
+				PRINTFORML %NTR_NAME(0)%は遠慮無く胸に手を伸ばしてきた……
 			ENDIF
-			�␳�l = 50
-			;���b�͎��ɔ���ɂȂ����Ⴄ��ł�����Ə����A���ʕ����͂܂Ƃ߂�
+			補正値 = 50
+			;快Ｃは死に判定になっちゃうんでちょっと除去、共通部分はまとめた
 		ELSE
-			PRINTFORML %CALLNAME:��Q��%��%NTR_NAME(0)%�𖳎����đ|���𑱂��Ă����
-			PRINTFORML %NTR_NAME(0)%�͕@�����r�����A�K�����łȂ����ɂ����L�΂��A%CALLNAME:��Q��%�̎��̂����\����
+			PRINTFORML %CALLNAME:被害者%が%NTR_NAME(0)%を無視して掃除を続けていると
+			PRINTFORML %NTR_NAME(0)%は鼻息を荒くし、尻だけでなく胸にも手を伸ばし、%CALLNAME:被害者%の肢体を堪能した
 		ENDIF
-		;�㏸����
-		DOWNBASE:��Q��:�̗� += 5
-		DOWNBASE:��Q��:�C�� += 50
-		SOURCE:��Q��:���a = 120 + �␳�l
-		SOURCE:��Q��:���y = 100 + �␳�l
-		SOURCE:��Q��:� = 150 + �␳�l
-		SOURCE:��Q��:�~�� = 170 + �␳�l
-		SOURCE:��Q��:�I�o =  70 + �␳�l
-		SOURCE:��Q��:�~�� = 120 + �␳�l + 240 * ABL:��Q��:�~�]
-		SOURCE:��Q��:�� = 120 + �␳�l + 240 * ABL:��Q��:�]��
-		;���ߕ␳�A�㔼�g���߂��͂����s��������0.8�{
-		IF TEQUIP:��Q��:�㔼�g���ߏ� > 1
-			TIMES SOURCE:��Q��:���a , 0.80
-			TIMES SOURCE:��Q��:�~�� , 0.80
-			TIMES SOURCE:��Q��:�I�o , 0.80
+		;上昇判定
+		DOWNBASE:被害者:体力 += 5
+		DOWNBASE:被害者:気力 += 50
+		SOURCE:被害者:快Ｂ = 120 + 補正値
+		SOURCE:被害者:歓楽 = 100 + 補正値
+		SOURCE:被害者:情愛 = 150 + 補正値
+		SOURCE:被害者:欲情 = 170 + 補正値
+		SOURCE:被害者:露出 =  70 + 補正値
+		SOURCE:被害者:欲情 = 120 + 補正値 + 240 * ABL:被害者:欲望
+		SOURCE:被害者:受動 = 120 + 補正値 + 240 * ABL:被害者:従順
+		;着衣補正、上半身着衣がはだけ不可だったら0.8倍
+		IF TEQUIP:被害者:上半身着衣状況 > 1
+			TIMES SOURCE:被害者:快Ｂ , 0.80
+			TIMES SOURCE:被害者:欲情 , 0.80
+			TIMES SOURCE:被害者:露出 , 0.80
 		ENDIF
 	ENDIF
-	CALL ROOM_SMELL_NTR_PET(��Q��)
+	CALL ROOM_SMELL_NTR_PET(被害者)
 RETURN 0
 
 ;-------------------------------------------------------------------------------
-;�ς�E�����i�����Ă�ꍇ�����ˁj
-;@param ��Q�� �ΏۂƂȂ�L�����N�^�[�ԍ�
-@SOJI_SexHara_Extra(��Q��)
-	#DIM ��Q��
+;ぱんつ脱がす（穿いてる場合だけね）
+;@param 被害者 対象となるキャラクター番号
+@SOJI_SexHara_Extra(被害者)
+	#DIM 被害者
 	#DIM V_MIN
 	#DIM V_MAX
 	VARSET LOCAL
-	IF EQUIP:��Q��:�����g�㒅�P || EQUIP:��Q��:�����g�㒅�Q || EQUIP:��Q��:�{�f�B�[�X�[�c || EQUIP:��Q��:���I�^�[�h
-		;�߂���Ȃ��̂ł��̂ւ�Ŗ������Ă���
-		PRINTFORML ��ʂ芴�G�����\����ƁA%NTR_NAME(0)%�͖�������%CALLNAME:��Q��%���痣��Ă�����
+	IF EQUIP:被害者:下半身上着１ || EQUIP:被害者:下半身上着２ || EQUIP:被害者:ボディースーツ || EQUIP:被害者:レオタード
+		;めくれないのでこのへんで満足しておく
+		PRINTFORML 一通り感触を堪能すると、%NTR_NAME(0)%は満足して%CALLNAME:被害者%から離れていった
 		RETURN 1
-	ELSEIF EQUIP:��Q��:�X�J�[�g || EQUIP:��Q��:�����s�[�X || EQUIP:��Q��:����
-		;�X�J�[�g�͗U���Ă�؋��Ȃ̂ŃC�^�Y���p��
-		PRINTFORMW ��ʂ芴�G�����\����ƁA%NTR_NAME(0)%��%CLOTHNAME(9,EQUIP:��Q��:�X�J�[�g)%���߂��肠����
+	ELSEIF EQUIP:被害者:スカート || EQUIP:被害者:ワンピース || EQUIP:被害者:着物
+		;スカートは誘ってる証拠なのでイタズラ継続
+		PRINTFORMW 一通り感触を堪能すると、%NTR_NAME(0)%は%CLOTHNAME(9,EQUIP:被害者:スカート)%をめくりあげて
 	ENDIF
-	;�m�[�p���Ȃ炱��͊ԈႢ�Ȃ��U���Ă���
-	IF EQUIP:��Q��:�����g�����P == 0 && EQUIP:��Q��:�����g�����Q == 0
-		IF HAS_VAGINA(��Q��)
-			IF STAIN:��Q��:�u & ����_���t
-				;V�����t�ŉ���Ă邩����̂͂���ł����̂��ȁH
-				IF STAIN:��Q��:�u & ����_�j�Z�̌�
-					;�X�ɏ������U�炳�ꂽ���Ȃ當���ω��B���ꂾ���Ō��Ă�̂ŏ󋵂ƑS�R����Ȃ��\���������B�v����
-					PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̏��߂Ă�D�������Ƃ����߂Ċm�F���A���������΂݂𕂂��ׂ�
-				ELSEIF TALENT:��Q��:���O�֏�
-					;���O�֏��������炿���Ǝg���Ă��������Ă邩�`�F�b�N���Ȃ��Ƃ�
-					PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%���֏��Ƃ��ē����Ă���̂��m�F���A���������΂݂𕂂��ׂ�
+	;ノーパンならこれは間違いなく誘ってるよね
+	IF EQUIP:被害者:下半身下着１ == 0 && EQUIP:被害者:下半身下着２ == 0
+		IF HAS_VAGINA(被害者)
+			IF STAIN:被害者:Ｖ & 汚れ_精液
+				;Vが精液で汚れてるか見るのはこれでいいのかな？
+				IF STAIN:被害者:Ｖ & 汚れ_破瓜の血
+					;更に処女を散らされた日なら文言変化。汚れだけで見てるので状況と全然合わない可能性もあるよ。要改造
+					PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の初めてを奪ったことを改めて確認し、満足した笑みを浮かべた
+				ELSEIF TALENT:被害者:公衆便所
+					;公衆便所だったらちゃんと使っていただいてるかチェックしないとね
+					PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%が便所として働いているのを確認し、満足した笑みを浮かべた
 				ELSE
-					PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̔鏊���琂�ꗎ���鐸�t���m�F���A�ɂ�ɂ₵�Ȃ���l���𗁂т��Ă���
+					PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の秘所から垂れ落ちる精液を確認し、にやにやしながら罵声を浴びせてきた
 				ENDIF
-			ELSEIF STAIN:��Q��:�u == 1
-				;���t�Ńg���g���̂Ƃ��䎌��ς���
-				IF PALAM:��Q��:���� >= PALAMLV:3
-					PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̃g���g���ɂȂ��Ă���镔��ڂɂ��A�D�F�����Ȋ������グ��
-					PRINTFORML 㵒p�����҂��A���ڂ�`����͐����𑝂��A�ۂ��ۂ����ꗎ���鎴�������ɏ����Ȑ����������Ă���
+			ELSEIF STAIN:被害者:Ｖ == 1
+				;愛液でトロトロのとき台詞を変える
+				IF PALAM:被害者:潤滑 >= PALAMLV:3
+					PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%のトロトロになっている秘部を目にし、好色そうな歓声を上げた
+					PRINTFORML 羞恥か期待か、太腿を伝う川は勢いを増し、ぽたぽた垂れ落ちる雫が足元に小さな水溜りを作っていた
 				ELSE
-					PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̎���C��тт��镔���m�F���A����炵�����z���q�ׂ�
+					PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の湿り気を帯びた秘部を確認し、いやらしく感想を述べた
 				ENDIF
-			ELSEIF STAIN:��Q��:�u == 0
-				;V������Ă��Ȃ�������ʂȂ��Ƃ�����
-				IF TALENT:MASTER:���O�֏�
-					;�֏����Y��Ȃ܂܂͂���������
-					PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̉���Ă��Ȃ��鏊�����āA�����Ǝg���Ă��炦�Ɠ{���𗁂т���
+			ELSEIF STAIN:被害者:Ｖ == 0
+				;Vが汚れていなかったら別なことを言う
+				IF TALENT:MASTER:公衆便所
+					;便所が綺麗なままはけしからんね
+					PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の汚れていない秘所を見て、ちゃんと使ってもらえと怒声を浴びせた
 				ELSE
-					PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%���Y��ɂ��Ă���镔���m�F���A����炵���΂���
+					PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の綺麗にしてある秘部を確認し、いやらしく笑った
 				ENDIF
 			ELSE
-				;����ȊO��V����̏ꍇ�BV������ŉ���Ă�Ƃ����ꂷ���ˁH�ƒǉ����悤���Ƃ��v�������ǁAeratoho�͊ȒP�ɕ������邩�炻��Ȃɓ���ł��Ȃ�������
-				PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̔镔�̉�����m�F���A����炵�����J�𐁂���
+				;それ以外のV汚れの場合。Vが母乳で汚れてるとか特殊すぎね？と追加しようかとも思ったけど、eratohoは簡単に噴乳するからそんなに特殊でもなかったわ
+				PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の秘部の汚れを確認し、いやらしく口笛を吹いた
 			ENDIF
 		ELSE
-			PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%������������Ă��Ȃ��̂��m�F����ƁA�镔�ɑ��𐁂�������
+			PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%が下着を穿いていないのを確認すると、秘部に息を吹きかけた
 		ENDIF
-		SOURCE:��Q��:�I�o += 200
-		SOURCE:��Q��:�~�� += 100 + 200 * ABL:��Q��:�~�]
-		SOURCE:��Q��:�� += 100 + 200 * ABL:��Q��:�]��
-	ELSEIF EQUIP:��Q��:�����g�����P == 100
-		;�呀��
-		PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%���呀�т𒅂��Ă���̂��m�F����ƁA���������������ė���Ă�����
-		SOURCE:��Q��:�I�o += 100
-		SOURCE:��Q��:�~�� += 100 + 100 * ABL:��Q��:�~�]
-		SOURCE:��Q��:�� += 100 + 100 * ABL:��Q��:�]��
+		SOURCE:被害者:露出 += 200
+		SOURCE:被害者:欲情 += 100 + 200 * ABL:被害者:欲望
+		SOURCE:被害者:受動 += 100 + 200 * ABL:被害者:従順
+	ELSEIF EQUIP:被害者:下半身下着１ == 100
+		;貞操帯
+		PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%が貞操帯を着けているのを確認すると、満足そうに頷いて離れていった
+		SOURCE:被害者:露出 += 100
+		SOURCE:被害者:欲情 += 100 + 100 * ABL:被害者:欲望
+		SOURCE:被害者:受動 += 100 + 100 * ABL:被害者:従順
 		RETURN 1
-	ELSE	;�ς�͂��������Ȃ�
-		PRINTFORM %CALLNAME:��Q��%��
-		IF EQUIP:��Q��:�����g�����P
-			PRINTFORM %PANTS_DESCRIPTION(EQUIP:��Q��:�����g�����P)%%PANTSNAME(EQUIP:��Q��:�����g�����P)%
-		ELSEIF EQUIP:��Q��:�����g�����Q
-			PRINTFORM %PANTS_DESCRIPTION(EQUIP:��Q��:�����g�����Q)%%PANTSNAME(EQUIP:��Q��:�����g�����Q)%
+	ELSE	;ぱんつはかせたくない
+		PRINTFORM %CALLNAME:被害者%の
+		IF EQUIP:被害者:下半身下着１
+			PRINTFORM %PANTS_DESCRIPTION(EQUIP:被害者:下半身下着１)%%PANTSNAME(EQUIP:被害者:下半身下着１)%
+		ELSEIF EQUIP:被害者:下半身下着２
+			PRINTFORM %PANTS_DESCRIPTION(EQUIP:被害者:下半身下着２)%%PANTSNAME(EQUIP:被害者:下半身下着２)%
 		ELSE
-			PRINTFORM �鏊���B������
-			;�������Ȃ��͂�
+			PRINTFORM 秘所を隠すそれ
+			;発生しないはず
 		ENDIF
-		PRINTFORML �Ɏ肪������ꂽ�c�c
+		PRINTFORML に手がかけられた……
 		V_MIN = 1
 		V_MAX = 1
-		IF TALENT:��Q��:���O�֏� ;���O�֏��Ȃ�v���ɉ����Ȃ��Ƃ�
-			PRINT [1] - �󂯓����
-		ELSEIF CFLAG:��Q��:�����x > 600 ;�����x�������ꍇ�䖝���邵���Ȃ�
-			PRINT [1] - ����������
+		IF TALENT:被害者:公衆便所 ;公衆便所なら要求に応えないとね
+			PRINT [1] - 受け入れる
+		ELSEIF CFLAG:被害者:屈服度 > 600 ;屈服度が高い場合我慢するしかない
+			PRINT [1] - 無視をする
 		ELSE
-			PRINT [0] - �ɂ݂��� [1] - ����������
+			PRINT [0] - 睨みつける [1] - 無視をする
 			V_MIN = 0
 		ENDIF
 		$INPUT_LOOP_1
@@ -220,51 +220,51 @@ RETURN 0
 		SIF RESULT < V_MIN || V_MAX < RESULT
 			GOTO INPUT_LOOP_1
 		IF !RESULT
-			PRINTFORML %CALLNAME:��Q��%���ӂ肩�������ɂ݂���ƁA
-			PRINTFORML %NTR_NAME(0)%�͂ɂ�ɂ�Ə΂݂𕂂��ׂ��܂�%CALLNAME:��Q��%���痣��Ă�����
-			SOURCE:��Q��:�I�o += 100
-			SOURCE:��Q��:�~�� += 100 + 200 * ABL:��Q��:�~�]
-			SOURCE:��Q��:�� += 100 + 200 * ABL:��Q��:�]��
-			RETURN 1 ;�{��ꂽ�̂ł����܂�
+			PRINTFORML %CALLNAME:被害者%がふりかえって睨みつけると、
+			PRINTFORML %NTR_NAME(0)%はにやにやと笑みを浮かべたまま%CALLNAME:被害者%から離れていった
+			SOURCE:被害者:露出 += 100
+			SOURCE:被害者:欲情 += 100 + 200 * ABL:被害者:欲望
+			SOURCE:被害者:受動 += 100 + 200 * ABL:被害者:従順
+			RETURN 1 ;怒られたのでここまで
 		ELSE
-			;�ς�͂����Ȃ�
-			CFLAG:��Q��:����_�����g�����Q = 0
-			IF TALENT:��Q��:���O�֏�
-				;�E������Ƃ��Ɏ��������������ǂЂƂ܂������܂�
-				PRINTFORML %NTR_NAME(0)%�͔��΂Ȍ��t�𗁂т��Ȃ���%CALlNAME:��Q��%�̉�����E�������
-				PRINTFORML �E�����Ă̂ɂ��������\���Ă��玩���̃|�P�b�g�ɂ˂�����
-				PRINTFORML %CALLNAME:��Q��%�͖j����߂Ę낫�A�����𓾂�܂ŌҊԂ��N���Ă���
-				SOURCE:��Q��:�I�o += 250
-				SOURCE:��Q��:�~�� += 150 + 200 * ABL:��Q��:�~�]
-				SOURCE:��Q��:�� += 150 + 200 * ABL:��Q��:�]��
-				SOURCE:��Q��:���] += 100
+			;ぱんつはかせない
+			CFLAG:被害者:服装_下半身下着２ = 0
+			IF TALENT:被害者:公衆便所
+				;脱がせるときに糸引かせたいけどひとまずここまで
+				PRINTFORML %NTR_NAME(0)%は卑猥な言葉を浴びせながら%CALlNAME:被害者%の下着を脱がせると
+				PRINTFORML 脱ぎたてのにおいを堪能してから自分のポケットにねじ込んだ
+				PRINTFORML %CALLNAME:被害者%は頬を染めて俯きつつ、許しを得るまで股間を晒していた
+				SOURCE:被害者:露出 += 250
+				SOURCE:被害者:欲情 += 150 + 200 * ABL:被害者:欲望
+				SOURCE:被害者:受動 += 150 + 200 * ABL:被害者:従順
+				SOURCE:被害者:屈従 += 100
 			ELSE
-				PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̉�����E������ƁA�����̃|�P�b�g�ɂ˂�����
-				SOURCE:��Q��:�I�o += 200
-				SOURCE:��Q��:�~�� += 100 + 200 * ABL:��Q��:�~�]
-				SOURCE:��Q��:�� += 100 + 200 * ABL:��Q��:�]��
+				PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の下着を脱がせると、自分のポケットにねじ込んだ
+				SOURCE:被害者:露出 += 200
+				SOURCE:被害者:欲情 += 100 + 200 * ABL:被害者:欲望
+				SOURCE:被害者:受動 += 100 + 200 * ABL:被害者:従順
 			ENDIF
 		ENDIF
 	ENDIF
 RETURN 0
 
 ;-------------------------------------------------------------------------------
-;�O�ネ�[�^�[�}��(���邢�͐V�i�Ɍ���)
-;@param ��Q�� �ΏۂƂȂ�L�����N�^�[�ԍ�
-@SOJI_SexHara_Hard(��Q��)
-	#DIM ��Q��
+;前後ローター挿入(あるいは新品に交換)
+;@param 被害者 対象となるキャラクター番号
+@SOJI_SexHara_Hard(被害者)
+	#DIM 被害者
 	#DIM V_MIN
 	#DIM V_MAX
 	VARSET LOCAL
-	PRINTFORML %NTR_NAME(0)%�͘I��ɂȂ����镔�𒭂߂Ă������A�₪�ĉ�������肾�����悤���c�c
+	PRINTFORML %NTR_NAME(0)%は露わになった秘部を眺めていたが、やがて何かを取りだしたようだ……
 	V_MIN = 1
 	V_MAX = 1
-	IF TALENT:��Q��:���O�֏� ;���O�֏��Ȃ牽�ł��󂯓���Ȃ��Ƃ�
-		PRINT [1] - �󂯓����
-	ELSEIF CFLAG:��Q��:�����x > 1000 ;�����x�������ꍇ�䖝���邵���Ȃ�
-		PRINT [1] - ����������
+	IF TALENT:被害者:公衆便所 ;公衆便所なら何でも受け入れないとね
+		PRINT [1] - 受け入れる
+	ELSEIF CFLAG:被害者:屈服度 > 1000 ;屈服度が高い場合我慢するしかない
+		PRINT [1] - 無視をする
 	ELSE
-		PRINT [0] - �����䖝�ł��Ȃ��I [1] - ����������
+		PRINT [0] - もう我慢できない！ [1] - 無視をする
 		V_MIN = 0
 	ENDIF
 	$INPUT_LOOP_1
@@ -274,117 +274,117 @@ RETURN 0
 	SIF RESULT < V_MIN || V_MAX < RESULT
 		GOTO INPUT_LOOP_1
 	IF !RESULT
-		PRINTFORML %CALLNAME:��Q��%���ς���ꂸ�ɂӂ肩����ƁA%NTR_NAME(0)%�͎�Ɏ����Ă������[�^�[���T�b�ƉB����
-		PRINTFORML %CALLNAME:��Q��%�������������Ƃ���O�ɁA%NTR_NAME(0)%�͂��������Ɨ���Ă������c�c
+		PRINTFORML %CALLNAME:被害者%が耐えられずにふりかえると、%NTR_NAME(0)%は手に持っていたローターをサッと隠した
+		PRINTFORML %CALLNAME:被害者%が何か言おうとする前に、%NTR_NAME(0)%はそそくさと離れていった……
 		RETURN 1
 	ELSE
-		IF HAS_VAGINA(��Q��)
-			IF TALENT:��Q��:����
-				;����܂ł킩��Ȃ�����ˁA�d�����Ȃ���
-				PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̔�O�������L���A���������m�F����Ǝw�𗣂���
+		IF HAS_VAGINA(被害者)
+			IF TALENT:被害者:処女
+				;見るまでわからないからね、仕方がないね
+				PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の秘唇を押し広げ、処女膜を確認すると指を離した
 			ELSE
-				IF CFLAG:��Q��:���[�^�[�}�� != 0
-					;���[�^�[�͐V�����̂Ɍ������悤�ˁ[
-					PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̔鏊�ɉ������܂�Ă��郍�[�^�[�̓d�r�����ւ���
+				IF CFLAG:被害者:ローター挿入 != 0
+					;ローターは新しいのに交換しようねー
+					PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の秘所に押し込まれているローターの電池を取り替えた
 				ELSE
-					PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̔鏊�Ƀ��[�^�[��}�����ČŒ肵��
+					PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の秘所にローターを挿入して固定した
 				ENDIF
-				CFLAG:��Q��:���[�^�[�}�� = 240
+				CFLAG:被害者:ローター挿入 = 240
 			ENDIF
-			PRINT ���̂܂�
+			PRINT そのまま
 		ENDIF
-		IF CFLAG:��Q��:���[�^�[A�}�� != 0
-			;���[�^�[�͐V�����̂Ɍ������悤�ˁ[
-			PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̃A�k�X�ɉ������܂�Ă��郍�[�^�[�̓d�r�����ւ���
+		IF CFLAG:被害者:ローターA挿入 != 0
+			;ローターは新しいのに交換しようねー
+			PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%のアヌスに押し込まれているローターの電池を取り替えた
 		ELSE
-			PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̃A�k�X�Ƀ��[�^�[��}�����ČŒ肵��
+			PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%のアヌスにローターを挿入して固定した
 		ENDIF
-		CFLAG:��Q��:���[�^�[A�}�� = 240
+		CFLAG:被害者:ローターA挿入 = 240
 	ENDIF
 RETURN 0
 
 ;-------------------------------------------------------------------------------
-;���I��d��v������
-;������ɓ��e�ǉ��B�K��҂̃y�j�y�j���|�������Ⴄ�B�K��҂̉���͂ǂ��ɂƂ�ɍs���΂����񂾂낤�H �K��҂��j�ł���Ƃ�����O��ō���
-;�|���� RAND 0:�舵��,1:�t�F�� 2:�p�C�Y�� 3:�����f�� 4:��w���� 5:A��w���� 6:�`���ɂȂɂ������
-;�ЂƂ܂����ڎ󂯓����̂̓J�b�g�B�K�v�Ȃ�R�����g�؂��Ă�
-;NTR�K��҂Ƃ̍s�ׂ��Ƃ肠��������Ɏg�p�B�v�����ς܂���ƂO�ɖ߂��Ă���
+;性的奉仕を要求する
+;超勝手に内容追加。訪問者のペニペニも掃除しちゃう。訪問者の汚れはどこにとりに行けばいいんだろう？ 訪問者が男であるという大前提で作るよ
+;掃除先 RAND 0:手扱き,1:フェラ 2:パイズリ 3:立ち素股 4:後背立位 5:A後背立位 6:〜他になにかあれば
+;ひとまず直接受け入れるのはカット。必要ならコメント切ってね
+;NTR訪問者との行為をとりあえず勝手に使用。要求を済ませると０に戻しておく
 ;
-;�|���̎���~�߂������A�|�����ɃC�^�Y�����銴���ɂ������Ȃ��B
-;@param ��Q�� �ΏۂƂȂ�L�����N�^�[�ԍ�
-@SOJI_SexHara_Lunatic(��Q��)
-	#DIM ��Q��
+;掃除の手を止めさせず、掃除中にイタズラする感じにしたいなあ。
+;@param 被害者 対象となるキャラクター番号
+@SOJI_SexHara_Lunatic(被害者)
+	#DIM 被害者
 	#DIM V_MIN
 	#DIM V_MAX
 	#DIM LOOP_CHR
 	VARSET LOCAL
-	PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�Ɍ����t����悤�Ƀy�j�X�����o����
-	CFLAG:��Q��:NTR�K��҂Ƃ̍s�� = 0 ;�ꎞ�I�Ȋi�[��B�v����
+	PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%に見せ付けるようにペニスを取り出すと
+	CFLAG:被害者:NTR訪問者との行為 = 0 ;一時的な格納先。要整理
 	SELECTCASE RAND:6
 		CASE 0
-			PRINTFORML ��ň���������悤�v�����Ă���
-			CFLAG:��Q��:NTR�K��҂Ƃ̍s�� = 0
+			PRINTFORML 手で扱きあげるよう要求してきた
+			CFLAG:被害者:NTR訪問者との行為 = 0
 		CASE 1
-			PRINTFORML �����Y��ɂ���悤�v�����Ă���
-			CFLAG:��Q��:NTR�K��҂Ƃ̍s�� = 1
+			PRINTFORML 口で綺麗にするよう要求してきた
+			CFLAG:被害者:NTR訪問者との行為 = 1
 		CASE 2
-			PRINTFORML ���ŋ��ނ悤�v�����Ă���
-			IF TALENT:��Q��:�o�X�g�T�C�Y == -2
-				PRINTFORML ���A%CALLNAME:��Q��%�̐���Ԃ�Ɏ��U���Ē��߂�
-				CFLAG:��Q��:NTR�K��҂Ƃ̍s�� = 0
+			PRINTFORML 胸で挟むよう要求してきた
+			IF TALENT:被害者:バストサイズ == -2
+				PRINTFORML が、%CALLNAME:被害者%の洗濯板ぶりに首を振って諦めた
+				CFLAG:被害者:NTR訪問者との行為 = 0
 				RETURN 1
 			ELSE
-				CFLAG:��Q��:NTR�K��҂Ƃ̍s�� = 2 
+				CFLAG:被害者:NTR訪問者との行為 = 2 
 			ENDIF
 		CASE 3
-			PRINTFORML ��L�ŎC�肠����悤�v�����Ă���
-			CFLAG:��Q��:NTR�K��҂Ƃ̍s�� = 3
+			PRINTFORML 秘貝で擦りあげるよう要求してきた
+			CFLAG:被害者:NTR訪問者との行為 = 3
 		CASE 4
-			IF TALENT:��Q��:����
-				PRINTFORML ���A%CALLNAME:��Q��%�������Ȃ̂��v���o���A��L�ŕ�d�����邱�Ƃɂ���
-				CFLAG:��Q��:NTR�K��҂Ƃ̍s�� = 3
-			ELSEIF EQUIP:PLAYER:�����g�㒅�P || EQUIP:PLAYER:�����g�㒅�Q
-				PRINTFORML %CALLNAME:��Q��%�̕���E�����Č�납��������ƁA�������Ɣ镔�ɑ_�����߂�
-			ELSEIF EQUIP:��Q��:�{�f�B�[�X�[�c
-				PRINTFORML �����ɒE�������Ȃ��������߁A�f�҂����邱�Ƃɂ���
-				CFlAG:��Q��:NTR�K��҂Ƃ̍s�� = 3
-			ELSEIF EQUIP:��Q��:���I�^�[�h
-				PRINTFORML �҂̕��������炵�Č�납��������ƁA�������Ɣ镔�ɑ_�����߂�
+			IF TALENT:被害者:処女
+				PRINTFORML が、%CALLNAME:被害者%が処女なのを思い出し、秘貝で奉仕させることにした
+				CFLAG:被害者:NTR訪問者との行為 = 3
+			ELSEIF EQUIP:PLAYER:下半身上着１ || EQUIP:PLAYER:下半身上着２
+				PRINTFORML %CALLNAME:被害者%の服を脱がせて後ろから抱きつくと、ゆっくりと秘部に狙いを定めた
+			ELSEIF EQUIP:被害者:ボディースーツ
+				PRINTFORML すぐに脱がせられなかったため、素股させることにした
+				CFlAG:被害者:NTR訪問者との行為 = 3
+			ELSEIF EQUIP:被害者:レオタード
+				PRINTFORML 股の部分をずらして後ろから抱きつくと、ゆっくりと秘部に狙いを定めた
 			ELSE
-				PRINTFORML ��납��������A�������Ɣ镔�ɑ_�����߂�
+				PRINTFORML 後ろから抱きつき、ゆっくりと秘部に狙いを定めた
 			ENDIF
-			CFLAG:��Q��:NTR�K��҂Ƃ̍s�� = 4
+			CFLAG:被害者:NTR訪問者との行為 = 4
 		CASE 5
-			IF EQUIP:PLAYER:�����g�㒅�P || EQUIP:PLAYER:�����g�㒅�Q
-				PRINTFORML %CALLNAME:��Q��%�̕���E�����Č�납��������ƁA�������Ə��e�ɂ��Ă�����
-			ELSEIF EQUIP:��Q��:�{�f�B�[�X�[�c
-				PRINTFORML �����ɒE�������Ȃ��������߁A�f�҂����邱�Ƃɂ���
-				CFlAG:��Q��:NTR�K��҂Ƃ̍s�� = 3
-			ELSEIF EQUIP:��Q��:���I�^�[�h
-				PRINTFORML �҂̕��������炵�Č�납��������ƁA�������Ə��e�ɂ��Ă�����
+			IF EQUIP:PLAYER:下半身上着１ || EQUIP:PLAYER:下半身上着２
+				PRINTFORML %CALLNAME:被害者%の服を脱がせて後ろから抱きつくと、ゆっくりと小菊にあてがった
+			ELSEIF EQUIP:被害者:ボディースーツ
+				PRINTFORML すぐに脱がせられなかったため、素股させることにした
+				CFlAG:被害者:NTR訪問者との行為 = 3
+			ELSEIF EQUIP:被害者:レオタード
+				PRINTFORML 股の部分をずらして後ろから抱きつくと、ゆっくりと小菊にあてがった
 			ELSE
-				PRINTFORML ��납��������A�������Ə��e�ɂ��Ă�����
+				PRINTFORML 後ろから抱きつき、ゆっくりと小菊にあてがった
 			ENDIF
-			CFLAG:��Q��:NTR�K��҂Ƃ̍s�� = 5
+			CFLAG:被害者:NTR訪問者との行為 = 5
 	ENDSELECT
 	V_MIN = 0
 	V_MAX = 2
-	IF TALENT:��Q��:���O�֏� ;���O�֏������炲��d���Ȃ��Ƃ�
-		PRINT [2] - ��d����
+	IF TALENT:被害者:公衆便所 ;公衆便所だからご奉仕しないとね
+		PRINT [2] - 奉仕する
 		V_MIN = 2
-	ELSEIF CFLAG:��Q��:�����x > 1500 ;�����x��������t�炦�Ȃ���
-		PRINT [2] - �a�X�]��
+	ELSEIF CFLAG:被害者:屈服度 > 1500 ;屈服度高いから逆らえないね
+		PRINT [2] - 渋々従う
 		V_MIN = 2
-	ELSEIF CFLAG:��Q��:�����x > 1000 ;�����x�����Ǝ�������͒ǂ������Ȃ���
-		PRINT [1] - ���������� [2] - �a�X�]��
+	ELSEIF CFLAG:被害者:屈服度 > 1000 ;屈服度高いと自分からは追い払えないね
+		PRINT [1] - 無視をする [2] - 渋々従う
 		V_MIN = 1
-	ELSEIF CFLAG:��Q��:�����x > 600 ;���΂ɂ�����Ɖ䖝�ł��Ȃ����
-		PRINT [0] - �����̂��� [1] - ���������� [2] - �a�X�]��
-	ELSEIF CFLAG:��Q��:�����x < 100 ;���A�����΂��Ȃ́H�@���ʂ́H�@���������ĂȂ�����ɂ��񂱍����o���Ȃ�ċ��C�̍�������
-		PRINT [0] - �����̂��� [1] - ���������� [2] - �a�X�]�� [3] - ����ׂ�
+	ELSEIF CFLAG:被害者:屈服度 > 600 ;流石にちょっと我慢できないよね
+		PRINT [0] - 押しのける [1] - 無視をする [2] - 渋々従う
+	ELSEIF CFLAG:被害者:屈服度 < 100 ;え、こいつばかなの？　死ぬの？　屈服させてない相手にちんこ差し出すなんて狂気の沙汰だよ
+		PRINT [0] - 押しのける [1] - 無視をする [2] - 渋々従う [3] - 握り潰す
 		V_MAX = 3
-	ELSE ;�����x��������Ƃ���ƃy�j�y�j�ǂ��������悤�Ƃ͎v���Ȃ���
-		PRINT [0] - �����̂��� [1] - ���������� [2] - �a�X�]��
+	ELSE ;屈服度がちょっとあるとペニペニどうこうしようとは思えないね
+		PRINT [0] - 押しのける [1] - 無視をする [2] - 渋々従う
 	ENDIF
 	$INPUT_LOOP_1
 	INPUT
@@ -393,205 +393,205 @@ RETURN 0
 	SIF RESULT < V_MIN || V_MAX < RESULT
 		GOTO INPUT_LOOP_1
 	IF !RESULT
-		PRINTFORML %CALLNAME:��Q��%���R�c����悤�ɂ�����%NTR_NAME(0)%�̋���������
-		PRINTFORML %NTR_NAME(0)%�͎c�O�����ɋ������Ƃ���
-		CFLAG:��Q��:NTR�K��҂Ƃ̍s�� = 0
+		PRINTFORML %CALLNAME:被害者%が抗議するようにやんわりと%NTR_NAME(0)%の胸を押すと
+		PRINTFORML %NTR_NAME(0)%は残念そうに距離をとった
+		CFLAG:被害者:NTR訪問者との行為 = 0
 		RETURN 1
-		;������肷��͍̂~�肩����΂̕��𕥂����Ƃ������c�c����
+		;無理やりするのは降りかかる火の粉を払ったときだけ……多分
 	ELSEIF RESULT == 1
-		PRINTFORML %CALLNAME:��Q��%�������I�ɑ���ɂ��Ȃ��ƕ������
+		PRINTFORML %CALLNAME:被害者%が自発的に相手にしないと分かると
 		SELECTCASE RAND:3
-				;���߂邩�ۂ��@�O�F���߂�@�P�F��ɎC��t����@�Q�F���ɎC��t����@�R�F�`���ɉ��������
+				;諦めるか否か　０：諦める　１：手に擦り付ける　２：服に擦り付ける　３：〜他に何かあれば
 			CASE 0
-				PRINTFORML ���C���킰���̂������������Ƃ���
+				PRINTFORML やる気が削げたのか少し距離をとった
 			CASE 1
-				PRINTFORML %CALLNAME:��Q��%�̎������ċC�����܂Ńy�j�X���C�����
-				SETBIT STAIN:��Q��:��,����B_�y�j�X
-				SETBIT STAIN:��Q��:��,����B_���t
-				EXP:��Q��:���t�o�� ++
-				CALL ROOM_SMELL_NTR_ORAL(��Q��)
+				PRINTFORML %CALLNAME:被害者%の手を取って気をやるまでペニスを擦りつけた
+				SETBIT STAIN:被害者:手,汚れB_ペニス
+				SETBIT STAIN:被害者:手,汚れB_精液
+				EXP:被害者:精液経験 ++
+				CALL ROOM_SMELL_NTR_ORAL(被害者)
 			CASE 2
-				;�v���o������S�����������
-				IF EQUIP:��Q��:�����g�㒅�P || EQUIP:��Q��:�����g�㒅�Q || EQUIP:��Q��:�{�f�B�[�X�[�c || EQUIP:��Q��:���I�^�[�h
-					PRINTFORML %CALLNAME:��Q��%�̕��Ńy�j�X���C��A�S�s���܂Ŏː����Ĕ������߂�
-				ELSEIF EQUIP:��Q��:�X�J�[�g || EQUIP:��Q��:�����s�[�X || EQUIP:��Q��:����
-					PRINTFORML %CALLNAME:��Q��%�̃X�J�[�g�Ńy�j�X���݁A�����ւƂ����Ղ�~�]��f���o����
-				ELSEIF EQUIP:��Q��:�����g�����Q == 0 && EQUIP:��Q��:�����g�����Q == 0
-					PRINTFORML %CALLNAME:��Q��%�̐K�⑾�ڂɃy�j�X���C����A���Ă�����菭����̕ӂ��_���Ďː�����
-					EXP:��Q��:���t�o�� ++
+				;思い出したら全裸判定入れるよ
+				IF EQUIP:被害者:下半身上着１ || EQUIP:被害者:下半身上着２ || EQUIP:被害者:ボディースーツ || EQUIP:被害者:レオタード
+					PRINTFORML %CALLNAME:被害者%の服でペニスを擦り、心行くまで射精して白く染めた
+				ELSEIF EQUIP:被害者:スカート || EQUIP:被害者:ワンピース || EQUIP:被害者:着物
+					PRINTFORML %CALLNAME:被害者%のスカートでペニスを包み、内側へとたっぷり欲望を吐き出した
+				ELSEIF EQUIP:被害者:下半身下着２ == 0 && EQUIP:被害者:下半身下着２ == 0
+					PRINTFORML %CALLNAME:被害者%の尻や太腿にペニスを擦りつけ、尾てい骨より少し上の辺りを狙って射精した
+					EXP:被害者:精液経験 ++
 				ELSE
-					THROW �������ꂽ�ꍇ�̏����Ŗ�肪�������܂����B
+					THROW 無視された場合の処理で問題が発生しました。
 				ENDIF
-				CALL ROOM_SMELL_CHARA_SUB(��Q��, �l��_�K���, �ɂ����̋���_���t_���, �ɂ����̎��_���t)
+				CALL ROOM_SMELL_CHARA_SUB(被害者, 人物_訪問者, においの強さ_精液_大量, においの種類_精液)
 		ENDSELECT
-		CFLAG:��Q��:NTR�K��҂Ƃ̍s�� = 0
+		CFLAG:被害者:NTR訪問者との行為 = 0
 		RETURN 1
 	ELSEIF RESULT == 2
-		;��ŃG�b�`�����Ⴄ����������B�o���Ă���
-		PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̕�d�����\���A�ː��̏I������y�j�X�̉�����Y��ɂ�����
-		IF CFLAG:��Q��:NTR�K��҂Ƃ̍s�� == 0 ;�舵��
-			SETBIT STAIN:��Q��:��,����B_�y�j�X
-			SETBIT STAIN:��Q��:��,����B_���t
-			EXP:��Q��:����o�� ++
-			EXP:��Q��:���t�o�� ++
-			SOURCE:��Q��:�B�� += 100
-			SOURCE:��Q��:���] += 100
-			CALL ROOM_SMELL_NTR_ORAL(��Q��) 
-		ELSEIF CFLAG:��Q��:NTR�K��҂Ƃ̍s�� == 1 ;�t�F��
-			SETBIT STAIN:��Q��:��,����B_�y�j�X
-			SETBIT STAIN:��Q��:��,����B_���t
-			EXP:��Q��:�����o�� ++
-			EXP:��Q��:���t�o�� ++
-			EXP:��Q��:�����o�� ++
-			SOURCE:��Q��:�B�� += 150
-			SOURCE:��Q��:���] += 100
-			SIF TALENT:��Q��:���L�ϐ� <= 2
-				SOURCE:��Q��:�s�� += 50
-			CALL ROOM_SMELL_NTR_ORAL(��Q��)
-		ELSEIF CFLAG:��Q��:NTR�K��҂Ƃ̍s�� == 2 ;�p�C�Y��
-			SETBIT STAIN:��Q��:�a,����B_�y�j�X
-			SETBIT STAIN:��Q��:�a,����B_���t
-			EXP:��Q��:�p�C�Y���o�� ++
-			EXP:��Q��:���t�o�� ++
-			EXP:��Q��:��d���y�o�� ++
-			SOURCE:��Q��:���a += 50 * ABL:��Q��:�a���o
-			SOURCE:��Q��:�B�� += 150
-			SOURCE:��Q��:���] += 100
-			SOURCE:��Q��:�I�o += 50
-			CALL ROOM_SMELL_NTR_ORAL(��Q��)
-			;�p�C�Y���t�F���Ƀ����_���ŕύX���������ǂƂ肠�����u���Ă���
-		ELSEIF CFLAG:��Q��:NTR�K��҂Ƃ̍s�� == 3 ;�X�}�^
-			SETBIT STAIN:��Q��:�u,����B_�y�j�X
-			SETBIT STAIN:��Q��:�u,����B_���t
-			EXP:��Q��:���t�o�� ++
-			EXP:��Q��:��d���y�o�� ++
-			SOURCE:��Q��:���b += 50 * ABL:��Q��:�b���o
-			SOURCE:��Q��:�t�� += 100
-			SOURCE:��Q��:�B�� += 150
-			SOURCE:��Q��:���] += 100
-			SOURCE:��Q��:�~�� += 100 + 50 * ABL:��Q��:�~�]
-			SOURCE:��Q��:�I�o += 100 + 50 * ABL:��Q��:�I�o��
-			CALL ROOM_SMELL_NTR_SEX(��Q��)
-		ELSEIF CFLAG:��Q��:NTR�K��҂Ƃ̍s�� == 4 ;��w��
-			EXP:��Q��:�u�o�� ++
-			EXP:��Q��:�u�����o�� ++
-			SOURCE:��Q��:���u += 50 * ABL:��Q��:�u���o
-			SOURCE:��Q��:�t�� += 100
-			SOURCE:��Q��:���s�� += 150
-			SOURCE:��Q��:�B�� += 150
-			SOURCE:��Q��:���] += 100
-			SOURCE:��Q��:�~�� += 100 + 50 * ABL:��Q��:�~�]
-			SOURCE:��Q��:�� += 100 + 50 * ABL:��Q��:�]��
-			SOURCE:��Q��:�I�o += 100 + 50 * ABL:��Q��:�I�o��
-			CALL �����ϓ�, ��Q��, 3, 0
-			CALL EJACULATION_V(MASTER, �l��_�K���)
-			CALL ROOM_SMELL_NTR_SEX(��Q��)
-		ELSEIF CFLAG:��Q��:NTR�K��҂Ƃ̍s�� == 5 ;A��w��
-			EXP:��Q��:�`�o�� ++
-			EXP:��Q��:�`�����o�� ++
-			SOURCE:��Q��:���` += 50 * ABL:��Q��:�`���o
-			SOURCE:��Q��:�t�� += 100
-			SOURCE:��Q��:���s�� += 150
-			SOURCE:��Q��:�B�� += 150
-			SOURCE:��Q��:���] += 100
-			SOURCE:��Q��:�s�� += 50
-			SOURCE:��Q��:�~�� += 100 + 50 * ABL:��Q��:�~�]
-			SOURCE:��Q��:�� += 100 + 50 * ABL:��Q��:�]��
-			SOURCE:��Q��:�I�o += 100 + 50 * ABL:��Q��:�I�o��
-			CALL �����ϓ�, ��Q��, 3, 1
-			CALL ROOM_SMELL_NTR_SEX(��Q��)
-			CALL EJACULATION_A(MASTER, �l��_�K���)
+		;後でエッチしちゃう処理入れるよ。覚えてたら
+		PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の奉仕を堪能し、射精の終わったペニスの汚れを綺麗にさせた
+		IF CFLAG:被害者:NTR訪問者との行為 == 0 ;手扱き
+			SETBIT STAIN:被害者:手,汚れB_ペニス
+			SETBIT STAIN:被害者:手,汚れB_精液
+			EXP:被害者:手淫経験 ++
+			EXP:被害者:精液経験 ++
+			SOURCE:被害者:達成 += 100
+			SOURCE:被害者:屈従 += 100
+			CALL ROOM_SMELL_NTR_ORAL(被害者) 
+		ELSEIF CFLAG:被害者:NTR訪問者との行為 == 1 ;フェラ
+			SETBIT STAIN:被害者:口,汚れB_ペニス
+			SETBIT STAIN:被害者:口,汚れB_精液
+			EXP:被害者:口淫経験 ++
+			EXP:被害者:精液経験 ++
+			EXP:被害者:精飲経験 ++
+			SOURCE:被害者:達成 += 150
+			SOURCE:被害者:屈従 += 100
+			SIF TALENT:被害者:汚臭耐性 <= 2
+				SOURCE:被害者:不潔 += 50
+			CALL ROOM_SMELL_NTR_ORAL(被害者)
+		ELSEIF CFLAG:被害者:NTR訪問者との行為 == 2 ;パイズリ
+			SETBIT STAIN:被害者:Ｂ,汚れB_ペニス
+			SETBIT STAIN:被害者:Ｂ,汚れB_精液
+			EXP:被害者:パイズリ経験 ++
+			EXP:被害者:精液経験 ++
+			EXP:被害者:奉仕快楽経験 ++
+			SOURCE:被害者:快Ｂ += 50 * ABL:被害者:Ｂ感覚
+			SOURCE:被害者:達成 += 150
+			SOURCE:被害者:屈従 += 100
+			SOURCE:被害者:露出 += 50
+			CALL ROOM_SMELL_NTR_ORAL(被害者)
+			;パイズリフェラにランダムで変更したいけどとりあえず置いておく
+		ELSEIF CFLAG:被害者:NTR訪問者との行為 == 3 ;スマタ
+			SETBIT STAIN:被害者:Ｖ,汚れB_ペニス
+			SETBIT STAIN:被害者:Ｖ,汚れB_精液
+			EXP:被害者:精液経験 ++
+			EXP:被害者:奉仕快楽経験 ++
+			SOURCE:被害者:快Ｃ += 50 * ABL:被害者:Ｃ感覚
+			SOURCE:被害者:液体 += 100
+			SOURCE:被害者:達成 += 150
+			SOURCE:被害者:屈従 += 100
+			SOURCE:被害者:欲情 += 100 + 50 * ABL:被害者:欲望
+			SOURCE:被害者:露出 += 100 + 50 * ABL:被害者:露出癖
+			CALL ROOM_SMELL_NTR_SEX(被害者)
+		ELSEIF CFLAG:被害者:NTR訪問者との行為 == 4 ;後背位
+			EXP:被害者:Ｖ経験 ++
+			EXP:被害者:Ｖ性交経験 ++
+			SOURCE:被害者:快Ｖ += 50 * ABL:被害者:Ｖ感覚
+			SOURCE:被害者:液体 += 100
+			SOURCE:被害者:性行動 += 150
+			SOURCE:被害者:達成 += 150
+			SOURCE:被害者:屈従 += 100
+			SOURCE:被害者:欲情 += 100 + 50 * ABL:被害者:欲望
+			SOURCE:被害者:受動 += 100 + 50 * ABL:被害者:従順
+			SOURCE:被害者:露出 += 100 + 50 * ABL:被害者:露出癖
+			CALL 締り具合変動, 被害者, 3, 0
+			CALL EJACULATION_V(MASTER, 人物_訪問者)
+			CALL ROOM_SMELL_NTR_SEX(被害者)
+		ELSEIF CFLAG:被害者:NTR訪問者との行為 == 5 ;A後背位
+			EXP:被害者:Ａ経験 ++
+			EXP:被害者:Ａ性交経験 ++
+			SOURCE:被害者:快Ａ += 50 * ABL:被害者:Ａ感覚
+			SOURCE:被害者:液体 += 100
+			SOURCE:被害者:性行動 += 150
+			SOURCE:被害者:達成 += 150
+			SOURCE:被害者:屈従 += 100
+			SOURCE:被害者:不潔 += 50
+			SOURCE:被害者:欲情 += 100 + 50 * ABL:被害者:欲望
+			SOURCE:被害者:受動 += 100 + 50 * ABL:被害者:従順
+			SOURCE:被害者:露出 += 100 + 50 * ABL:被害者:露出癖
+			CALL 締り具合変動, 被害者, 3, 1
+			CALL ROOM_SMELL_NTR_SEX(被害者)
+			CALL EJACULATION_A(MASTER, 人物_訪問者)
 		ELSE
-			THROW �s�ׂ̌���Ŗ�肪�������܂����B
+			THROW 行為の決定で問題が発生しました。
 			RETURN 1
 		ENDIF
-		CFLAG:��Q��:NTR�K��҂Ƃ̍s�� = 0
+		CFLAG:被害者:NTR訪問者との行為 = 0
 	ELSEIF RESULT == 3
-		PRINTFORMW �������
-		PRINTFORML ����ȉ����������ȂقǁA%CALLNAME:��Q��%�͓�̕�ʂ�͋��������ĎC�荇�킹��
-		PRINTFORML %NTR_NAME(0)%�͎��ɕm�����悤�ȏ�Ȃ��ߖ��グ�ĕG������ꗎ��
-		PRINTFORML �ҊԂ��������Ȃ���̂��ł�����Ă���
-		PRINTFORMW ���̎p�������낵�Ȃ���%CALLNAME:��Q��%�͎v�킸�ꂢ��
-		PRINTFORMW �u������������ł���v
-		;�K��Ҍ��ރt���O�Ƃ�����Ă݂��B�b�����Ȃ����瓦����悤�Ɉړ��p�^�[����ς��Ă݂����˂��̂���
-		PRINTFORMW %CALLNAME:��Q��%��%NTR_NAME(0)%��ǂ��o�����ɐ��������I
-		FLAG:�K��҂̌��݈ʒu = �ꏊ_�K��ґ�
-		FLAG:�K��ғ��s�t���O = 0
+		PRINTFORMW こきゅり
+		PRINTFORML そんな音がしそうなほど、%CALLNAME:被害者%は二つの宝玉を力強く握って擦り合わせた
+		PRINTFORML %NTR_NAME(0)%は死に瀕したような情けない悲鳴を上げて膝から崩れ落ち
+		PRINTFORML 股間を押さえながらのた打ち回っている
+		PRINTFORMW その姿を見下ろしながら%CALLNAME:被害者%は思わず呟いた
+		PRINTFORMW 「足元がお留守ですよ」
+		;訪問者撃退フラグとか入れてみた。暫くあなたから逃げるように移動パターンを変えてみたいねそのうち
+		PRINTFORMW %CALLNAME:被害者%は%NTR_NAME(0)%を追い出す事に成功した！
+		FLAG:訪問者の現在位置 = 場所_訪問者宅
+		FLAG:訪問者同行フラグ = 0
 		CALL NTR_RESET_VISITOR_ACTION(-1)
-		FLAG:�K��҂Ƃ̉��ꔻ��Ɏg�p = 0
-		FLAG:�K��ґ؍ݎ��ԃJ�E���^ = 0
-		;�����x���Z�B����ׂ������������ˁB���\�������
-		CFLAG:��Q��:�����x = MAX(CFLAG:��Q��:�����x - 100 - RAND:100, 0)
-		;�������Z�l�̕]��UP�A������NTR��Ԃ̏Z�l�̕]���_�E���A�K��҂̏�Ȃ��p�ɊF����
+		FLAG:訪問者との汚れ判定に使用 = 0
+		FLAG:訪問者滞在時間カウンタ = 0
+		;屈服度減算。握り潰しちゃったからね。結構下げるよ
+		CFLAG:被害者:屈服度 = MAX(CFLAG:被害者:屈服度 - 100 - RAND:100, 0)
+		;勝利時住人の評価UP、同時にNTR状態の住人の評価ダウン、訪問者の情けない姿に皆幻滅
 		FOR LOOP_CHR,0,CHARANUM
-			IF LOOP_CHR == ��Q��
-				;�������g�͕]�����Ȃ�
-			ELSEIF CFLAG:LOOP_CHR:���݈ʒu == CFLAG:��Q��:���݈ʒu
-				IF CFLAG:LOOP_CHR:�D���x > CFLAG:LOOP_CHR:�����x
-					CFLAG:LOOP_CHR:�D���x = CFLAG:LOOP_CHR:�D���x + 50
-					CFLAG:LOOP_CHR:�����x = CFLAG:LOOP_CHR:�����x - 100
-					PRINTFORMW %CALLNAME:LOOP_CHR%��%CALLNAME:��Q��%��J�߂Ă��ꂽ�B
+			IF LOOP_CHR == 被害者
+				;自分自身は評価しない
+			ELSEIF CFLAG:LOOP_CHR:現在位置 == CFLAG:被害者:現在位置
+				IF CFLAG:LOOP_CHR:好感度 > CFLAG:LOOP_CHR:屈服度
+					CFLAG:LOOP_CHR:好感度 = CFLAG:LOOP_CHR:好感度 + 50
+					CFLAG:LOOP_CHR:屈服度 = CFLAG:LOOP_CHR:屈服度 - 100
+					PRINTFORMW %CALLNAME:LOOP_CHR%は%CALLNAME:被害者%を褒めてくれた。
 				ELSE
-					IF TALENT:LOOP_CHR:���O�֏�
-						CFLAG:LOOP_CHR:�D���x = CFLAG:LOOP_CHR:�D���x - 100
-						CFLAG:LOOP_CHR:�����x = CFLAG:LOOP_CHR:�����x - 100
-						PRINTFORML %CALLNAME:LOOP_CHR%�͖A�𐁂��ėd�����C�h�����ɉ^�΂�čs��%NTR_NAME(0)%�̌ҊԂ�S�z�����Ɍ��߂Ă���
-						;�֏������玩���̂���d��ł����D���Ȃ��̂�e���ɂ��锜�ޒB�Ɍ��ł����
+					IF TALENT:LOOP_CHR:公衆便所
+						CFLAG:LOOP_CHR:好感度 = CFLAG:LOOP_CHR:好感度 - 100
+						CFLAG:LOOP_CHR:屈服度 = CFLAG:LOOP_CHR:屈服度 - 100
+						PRINTFORML %CALLNAME:LOOP_CHR%は泡を吹いて妖精メイドたちに運ばれて行く%NTR_NAME(0)%の股間を心配そうに見つめていた
+						;便所だから自分のご奉仕先である大好きなものを粗末にする莫迦達に幻滅するよ
 					ELSEIF TALENT:LOOP_CHR:NTR
-						CFLAG:LOOP_CHR:�D���x = CFLAG:LOOP_CHR:�D���x - 50
-						CFLAG:LOOP_CHR:�����x = CFLAG:LOOP_CHR:�����x - 200
-						PRINTFORML %CALLNAME:LOOP_CHR%�͖A�𐁂��ėd�����C�h�����ɉ^�΂�čs��%NTR_NAME(0)%����ꂽ�ڂŌ��Ă���
-						;NTR������厖�Ȑl�̂�ׂ�������]���͉����邯�ǁA�����ȊO�Ɏ���o���Ď��Ǝ����Ƃ��v���Ă��
+						CFLAG:LOOP_CHR:好感度 = CFLAG:LOOP_CHR:好感度 - 50
+						CFLAG:LOOP_CHR:屈服度 = CFLAG:LOOP_CHR:屈服度 - 200
+						PRINTFORML %CALLNAME:LOOP_CHR%は泡を吹いて妖精メイドたちに運ばれて行く%NTR_NAME(0)%を呆れた目で見ていた
+						;NTRだから大事な人のを潰したから評価は下がるけど、自分以外に手を出して自業自得とも思ってるよ
 					ELSE
-						CFLAG:LOOP_CHR:�����x = CFLAG:LOOP_CHR:�����x - 100
-						PRINTFORML %CALLNAME:LOOP_CHR%�͂����ŋN�������Ƃ����Ȃ��������Ƃɂ���
-						;�܂��ח��͂��ĂȂ�����A�����ȊO�ւ̃Z�N�n���œ|�ꂽ�񂾂����Ǝ����Ǝv���Ă��
+						CFLAG:LOOP_CHR:屈服度 = CFLAG:LOOP_CHR:屈服度 - 100
+						PRINTFORML %CALLNAME:LOOP_CHR%はそこで起きたことを見なかったことにした
+						;まだ陥落はしてないから、自分以外へのセクハラで倒れたんだし自業自得と思ってるよ
 					ENDIF
 				ENDIF
 			ENDIF
 		NEXT
 		RETURN 1
 	ELSE
-		THROW �����̌���Ŗ�肪�������܂����B
+		THROW 反応の決定で問題が発生しました。
 		RETURN 1
 	ENDIF
 RETURN 0
 
 ;-------------------------------------------------------------------------------
-;���Ȃ����Ǘ������Ⴄ
-;@param ��Q�� �ΏۂƂȂ�L�����N�^�[�ԍ�
-@SOJI_SexHara_Phantasm(��Q��)
-	#DIM ��Q��
+;あなたを管理しちゃう
+;@param 被害者 対象となるキャラクター番号
+@SOJI_SexHara_Phantasm(被害者)
+	#DIM 被害者
 	VARSET LOCAL
-	IF HAS_VAGINA (��Q��) && GET_N_WITH_VISITER(0) == 1 && IS_NTR_IMPRISON_ENABLE()
-		;V�������Đݒ�Ŋċ�ON�̏ꍇ�������A��D��
-		CALL SOJI_SexHara_Phantasm_Route2(��Q��) 
+	IF HAS_VAGINA (被害者) && GET_N_WITH_VISITER(0) == 1 && IS_NTR_IMPRISON_ENABLE()
+		;Vがあって設定で監禁ONの場合お持ち帰り優先
+		CALL SOJI_SexHara_Phantasm_Route2(被害者) 
 		RETURN 1
-	ELSEIF HAS_PENIS (��Q��)
-		;P������ꍇ
-		CALL SOJI_SexHara_Phantasm_Route1(��Q��)
+	ELSEIF HAS_PENIS (被害者)
+		;Pがある場合
+		CALL SOJI_SexHara_Phantasm_Route1(被害者)
 		RETURN 1
 	ELSE
 		RETURN 0
 	ENDIF
 ;-------------------------------------------------------------------------------
-;���Ȃ����Ǘ������Ⴄ - �y�j�X�p�呀�т���������
-;@param ��Q�� �ΏۂƂȂ�L�����N�^�[�ԍ�
-@SOJI_SexHara_Phantasm_Route1(��Q��)
-	#DIM ��Q��
+;あなたを管理しちゃう - ペニス用貞操帯をつけさせる
+;@param 被害者 対象となるキャラクター番号
+@SOJI_SexHara_Phantasm_Route1(被害者)
+	#DIM 被害者
 	#DIM V_MIN
 	#DIM V_MAX
 	VARSET LOCAL
-	IF CFLAG:��Q��:�y�j�X�p�呀�ђ��p == 0
-		;���Ă��Ȃ��ꍇ
-		PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̖ڂ̑O�ŁA�����ȃy�j�X�p�̒呀�т���肾����
+	IF CFLAG:被害者:ペニス用貞操帯着用 == 0
+		;つけていない場合
+		PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の目の前で、小さなペニス用の貞操帯を取りだした
 		V_MIN = 0
 		V_MAX = 1
-		IF CFLAG:��Q��:�����x > 2000 ;�����x�������ꍇ�͋��ۂł��Ȃ�
-			PRINT [1] - �����Ă��炤
+		IF CFLAG:被害者:屈服度 > 2000 ;屈服度が高い場合は拒否できない
+			PRINT [1] - 着けてもらう
 			V_MIN = 0
 		ELSE
-			PRINT [0] - ����͗��΂ɋ�����Ȃ��I [1] - ���������畉���c�c���������畉���c�c
+			PRINT [0] - それは流石に許されない！ [1] - 反応したら負け……反応したら負け……
 		ENDIF
 		$INPUT_LOOP_1
 		INPUT
@@ -600,26 +600,26 @@ RETURN 0
 		SIF RESULT < V_MIN || V_MAX < RESULT
 			GOTO INPUT_LOOP_1
 		IF !RESULT
-			PRINTFORML %CALLNAME:��Q��%���r��͂�Ŏ~�߂�ƁA%NTR_NAME(0)%�͒呀�т�Еt������Ă������c�c
+			PRINTFORML %CALLNAME:被害者%が腕を掴んで止めると、%NTR_NAME(0)%は貞操帯を片付け離れていった……
 			RETURN 1
 		ELSE
-			PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̃y�j�X�ɒ呀�т𒅂���ƁA�P�T�Ԍ�ɊO���Ă��ƌ����ė���Ă������c�c
-			;�����x�����I�ɑ�����B�����Ȃ��ꍇ�͋����I��1500��
-			CFLAG:��Q��:�����x = MAX (CFLAG:��Q��:�����x + 20 + RAND:20,1500)
-			;�y�j�X�p�呀�ё���
-			CALL MOUNT_P_CHASTITY_BELT(��Q��, �l��_�K���, 2)
+			PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%のペニスに貞操帯を着けると、１週間後に外してやると言って離れていった……
+			;屈服度が劇的に増える。満たない場合は強制的に1500に
+			CFLAG:被害者:屈服度 = MAX (CFLAG:被害者:屈服度 + 20 + RAND:20,1500)
+			;ペニス用貞操帯装着
+			CALL MOUNT_P_CHASTITY_BELT(被害者, 人物_訪問者, 2)
 		ENDIF
-	ELSEIF CFLAG:��Q��:�y�j�X�p�呀�ђ��p > 1000 && CHK_DISMOUNT_P_CHASTITY_BELT(��Q��, �l��_�K���)
-		;���łɒ����Ă���ꍇ�B������ƃN�\�Ǘ������ǁA1000�����͕ʂŎg��
-		PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̒呀�т��w�ŃR���R���ƒ@���A�������������
+	ELSEIF CFLAG:被害者:ペニス用貞操帯着用 > 1000 && CHK_DISMOUNT_P_CHASTITY_BELT(被害者, 人物_訪問者)
+		;すでに着けている場合。ちょっとクソ管理だけど、1000未満は別で使う
+		PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の貞操帯を指でコンコンと叩き、鍵をちらつかせた
 		V_MIN = 0
 		V_MAX = 1
-		IF CFLAG:��Q��:�����x > 4000
-			;�����x�����ɍ����ꍇ�͑ς��邱�Ƃ����ł��Ȃ�
-			PRINT [1] - �O���ĖႦ��܂ŉ䖝
+		IF CFLAG:被害者:屈服度 > 4000
+			;屈服度が非常に高い場合は耐えることしかできない
+			PRINT [1] - 外して貰えるまで我慢
 			V_MIN = 1
 		ELSE
-			PRINT [0] - �����O���Ă���Ɨ��� [1] - �O���ĖႦ��܂ŉ䖝
+			PRINT [0] - もう外してくれと頼む [1] - 外して貰えるまで我慢
 		ENDIF
 		$INPUT_LOOP_2
 		INPUT
@@ -627,61 +627,61 @@ RETURN 0
 			RESULT = V_MAX
 		SIF RESULT < V_MIN || V_MAX < RESULT
 			GOTO INPUT_LOOP_2
-		IF RESULT==0 ;�����O���Ă���Ɨ���
-			IF TIME_PROGRESS(CFLAG:��Q��:�y�j�X�p�呀�ђ��p) < ����_1WEEK
-				;�V���o�߂��Ă��Ȃ�
-				PRINTFORML %NTR_NAME(0)%�́A���������̂��o���Ă��Ȃ��̂Ȃ�A�������琔�������ƌ�������Ă������c�c
-				;������킩�炳��鎖�ŋ����x������
-				SOURCE:��Q��:�� += 100 + 200 * ABL:��Q��:�]��
-				CALL NTR_ADD_SURRENDER(��Q��, (20 + RAND:20))
-				;���p�������Z�b�g
-				CFLAG:��Q��:�y�j�X�p�呀�ђ��p = TIME_PROGRESS(0)
+		IF RESULT==0 ;もう外してくれと頼んだ
+			IF TIME_PROGRESS(CFLAG:被害者:ペニス用貞操帯着用) < 時間_1WEEK
+				;７日経過していない
+				PRINTFORML %NTR_NAME(0)%は、いつ着けたのか覚えていないのなら、今日から数え直せと言い離れていった……
+				;立場をわからされる事で屈服度が増加
+				SOURCE:被害者:受動 += 100 + 200 * ABL:被害者:従順
+				CALL NTR_ADD_SURRENDER(被害者, (20 + RAND:20))
+				;着用日をリセット
+				CFLAG:被害者:ペニス用貞操帯着用 = TIME_PROGRESS(0)
 			ELSE
-				;�V���䖝�ł���
-				PRINTFORML %NTR_NAME(0)%�͂��낻�닖���Ă��ƌ����A%CALLNAME:��Q��%�̒呀�т����O�����B
-				;�y�j�X�p�呀�щ���
-				CALL DISMOUNT_P_CHASTITY_BELT(��Q��)
-				SOURCE:��Q��:�� += 100 + 200 * ABL:��Q��:�]��
+				;７日我慢できた
+				PRINTFORML %NTR_NAME(0)%はそろそろ許してやると言い、%CALLNAME:被害者%の貞操帯を取り外した。
+				;ペニス用貞操帯解除
+				CALL DISMOUNT_P_CHASTITY_BELT(被害者)
+				SOURCE:被害者:受動 += 100 + 200 * ABL:被害者:従順
 			ENDIF
-		ELSE ;�O���ĖႦ��܂ŉ䖝���Ă���
-			IF TIME_PROGRESS(CFLAG:��Q��:�y�j�X�p�呀�ђ��p) < ����_1WEEK
-				;�V���o�߂��Ă��Ȃ�
-				PRINTFORML %NTR_NAME(0)%�͈Ӓn�����΂��A�呀�т̌����|�P�b�g�ɂ��܂�����
-				CALL NTR_ADD_SURRENDER(��Q��, RAND:20)
-			ELSEIF TIME_PROGRESS(CFLAG:��Q��:�y�j�X�p�呀�ђ��p) < RAND(86400)
-				;�V���ȏ�o�߂��Ă��邪���������t�������Ă��������ꍇ
-				PRINTFORML %NTR_NAME(0)%�͒呀�т��C�ɓ������悤������������������Ă���ƌ����A�呀�т̌����|�P�b�g�ɂ��܂�����
-				CALL NTR_ADD_SURRENDER(��Q��, RAND:20)
+		ELSE ;外して貰えるまで我慢している
+			IF TIME_PROGRESS(CFLAG:被害者:ペニス用貞操帯着用) < 時間_1WEEK
+				;７日経過していない
+				PRINTFORML %NTR_NAME(0)%は意地悪く笑い、貞操帯の鍵をポケットにしまい込んだ
+				CALL NTR_ADD_SURRENDER(被害者, RAND:20)
+			ELSEIF TIME_PROGRESS(CFLAG:被害者:ペニス用貞操帯着用) < RAND(86400)
+				;７日以上経過しているがもう少し付けさせておきたい場合
+				PRINTFORML %NTR_NAME(0)%は貞操帯が気に入ったようだからもう少し着けていろと言い、貞操帯の鍵をポケットにしまい込んだ
+				CALL NTR_ADD_SURRENDER(被害者, RAND:20)
 			ELSE
-				;�V���ȏ�o�߂��Ă��ċC���������ꍇ(�ő��60���䖝������)
-				PRINTFORML %NTR_NAME(0)%�́A�呀�т𒅂��Ă���{TIME_PROGRESS(CFLAG:��Q��:�y�j�X�p�呀�ђ��p)/����_1DAY}���ɂȂ邵�A���낻�닖���Ă��ƌ����A%CALLNAME:��Q��%�̒呀�т����O�����B
-				;�y�j�X�p�呀�щ���
+				;７日以上経過していて気が向いた場合(最大で60日我慢させる)
+				PRINTFORML %NTR_NAME(0)%は、貞操帯を着けてから{TIME_PROGRESS(CFLAG:被害者:ペニス用貞操帯着用)/時間_1DAY}日になるし、そろそろ許してやると言い、%CALLNAME:被害者%の貞操帯を取り外した。
+				;ペニス用貞操帯解除
 				CALL DISMOUNT_P_CHASTITY_BELT(MASTER)
-				SOURCE:��Q��:�� += 100 + 200 * ABL:��Q��:�]��
+				SOURCE:被害者:受動 += 100 + 200 * ABL:被害者:従順
 			ENDIF
 		ENDIF
 	ENDIF
 RETURN 0
 
 ;-------------------------------------------------------------------------------
-;���Ȃ����Ǘ������Ⴄ - ��������������(�������A�菟��ɑ����܂���)
-;(�O������ƂȂ�p�b�`���쐬��)
-;@param ��Q�� �ΏۂƂȂ�L�����N�^�[�ԍ�
-@SOJI_SexHara_Phantasm_Route2(��Q��)
-	#DIM ��Q��
+;あなたを管理しちゃう - ○○をつけさせる(お持ち帰り勝手に足しました)
+;(前提条件となるパッチを作成中)
+;@param 被害者 対象となるキャラクター番号
+@SOJI_SexHara_Phantasm_Route2(被害者)
+	#DIM 被害者
 	#DIM V_MIN
 	#DIM V_MAX
 	VARSET LOCAL
 	IF CFLAG:120 == 0
-		;�������A��
-		PRINTFORML %NTR_NAME(0)%��%CALLNAME:��Q��%�̖ڂ̑O�ŁA��≎�D�Ȃǂ̍S�������肾����
+		;お持ち帰り
+		PRINTFORML %NTR_NAME(0)%は%CALLNAME:被害者%の目の前で、縄や猿轡などの拘束具を取りだした
 		V_MIN = 0
 		V_MAX = 1
-		IF CFLAG:��Q��:�����x > 2000 ;�����x�������ꍇ�͋��ۂł��Ȃ�
-			PRINT [1] - ��R�ł��Ȃ�
+		IF CFLAG:被害者:屈服度 > 2000 ;屈服度が高い場合は拒否できない
+			PRINT [1] - 抵抗できない
 			V_MIN = 1
 		ELSE
-			PRINT [0] - ����͗��΂ɋ�����Ȃ��I [1] - ���������畉���c�c���������畉���c�c
+			PRINT [0] - それは流石に許されない！ [1] - 反応したら負け……反応したら負け……
 		ENDIF
 		$INPUT_LOOP_1
 		INPUT
@@ -690,77 +690,77 @@ RETURN 0
 		SIF RESULT < V_MIN || V_MAX < RESULT
 			GOTO INPUT_LOOP_1
 		IF !RESULT
-			PRINTFORML %CALLNAME:��Q��%���r��͂�Ŏ~�߂�ƁA%NTR_NAME(0)%�͍S�����Еt������Ă������c�c
+			PRINTFORML %CALLNAME:被害者%が腕を掴んで止めると、%NTR_NAME(0)%は拘束具を片付け離れていった……
 			RETURN 1
 		ELSE
-			PRINTFORML %NTR_NAME(0)%�͎�ۂ悭%CALLNAME:��Q��%�̌��Ǝ葫�𔛂�A����ɘA��ċA�����c�c
-			;�����x��������B
-			CFLAG:��Q��:�����x = MAX (CFLAG:��Q��:�����x + 20 + RAND:20,100)
-			CFLAG:��Q��:���݈ʒu = �ꏊ_�K��ґ�
-			FLAG:�K��҂̌��݈ʒu = �ꏊ_�K��ґ�
-			;�ꏊ�͘S���� (�������A��p�b�`�̍\������q�؂��܂����B)
-			CFLAG:MASTER:���݈ʒu�ڍ� = 25
-			;���͑S��������
-			FLAG:�K��ґ�̎{����� ^= (�K��ґ�_�S��������|�K��ґ�_�ʘH������|�K��ґ�_����������)
-			CFLAG:MASTER:NTR�K��ґ�ċ֏� ^= (�K��ґ�_�S��������|�K��ґ�_�ʘH������|�K��ґ�_����������)
+			PRINTFORML %NTR_NAME(0)%は手際よく%CALLNAME:被害者%の口と手足を縛り、自宅に連れて帰った……
+			;屈服度が増える。
+			CFLAG:被害者:屈服度 = MAX (CFLAG:被害者:屈服度 + 20 + RAND:20,100)
+			CFLAG:被害者:現在位置 = 場所_訪問者宅
+			FLAG:訪問者の現在位置 = 場所_訪問者宅
+			;場所は牢屋に (お持ち帰りパッチの構文から拝借しました。)
+			CFLAG:MASTER:現在位置詳細 = 25
+			;鍵は全部かける
+			FLAG:訪問者宅の施錠状態 ^= (訪問者宅_牢屋解錠済|訪問者宅_通路解錠済|訪問者宅_床扉解錠済)
+			CFLAG:MASTER:NTR訪問者宅監禁状況 ^= (訪問者宅_牢屋解錠済|訪問者宅_通路解錠済|訪問者宅_床扉解錠済)
 		ENDIF
 	ENDIF
 RETURN 0
 
 ;-------------------------------------------------------------------------------
-;�u�N�ɑ΂���y�i���e�B����
-;@param �L�����ԍ� �ΏۂƂȂ�L�����N�^�[
-@SOJI_SexHara_ErectPunishment(�L�����ԍ�,���b�Z�[�W�\��=1)
-	#DIM �u�N���
-	#DIM �u�N�_���[�W
-	#DIM ���b�Z�[�W�\��
-	#DIM �L�����ԍ�
+;勃起に対するペナルティ処理
+;@param キャラ番号 対象となるキャラクター
+@SOJI_SexHara_ErectPunishment(キャラ番号,メッセージ表示=1)
+	#DIM 勃起上限
+	#DIM 勃起ダメージ
+	#DIM メッセージ表示
+	#DIM キャラ番号
 
-	IF !HAS_PENIS(�L�����ԍ�)
-		;���񂱂�������Ζu�N���Ȃ��̂ŏ������Ȃ�
+	IF !HAS_PENIS(キャラ番号)
+		;ちんこが無ければ勃起しないので処理しない
 		RETURN 0
 	ENDIF
 
-	IF CFLAG:�L�����ԍ�:���݈ʒu != CFLAG:MASTER:���݈ʒu
-		;�����ĂȂ����͕̂������Ă��Ȃ�
-		���b�Z�[�W�\�� = 0
+	IF CFLAG:キャラ番号:現在位置 != CFLAG:MASTER:現在位置
+		;見えてないものは聞こえてこない
+		メッセージ表示 = 0
 	ENDIF
 
-	;NTR�Ȃ�ŁA���Ȃ�����͗�O�������Ƃ����c�c�����l-1�������炠�Ȃ����ΏۂɊ܂߂ꂽ�񂾂��ǂ�
-	IF TCVAR:�L�����ԍ�:�s�׎� > 0 && TCVAR:�L�����ԍ�:�s�׎� != �L�����ԍ� && CFLAG:�L�����ԍ�:�u�N����_�L���� == TCVAR:�L�����ԍ�:�s�׎�
-		;�D���x���L�����ʂɂ�����A�������D���x�ˑ��ɂ������ł���
-		�u�N��� = MAX(MAXBASE:�L�����ԍ�:�u�N, MAXBASE:�L�����ԍ�:�u�N+ABL:(TCVAR:�L�����ԍ�:�s�׎�):��d���_*50)
-		SIF ���b�Z�[�W�\��
-			PRINTFORML Unlike %CALLNAME:(TCVAR:�L�����ԍ�:�s�׎�)+"'s "+PENIS_APPEAR(TCVAR:�L�����ԍ�:�s�׎�)+", "+CALLNAME:�L�����ԍ�+"'s "+PENIS_APPEAR(�L�����ԍ�)+" seems to be a bit harder than usual."%
+	;NTRなんで、あなた相手は例外処理しとこう……初期値-1だったらあなたも対象に含めれたんだけどね
+	IF TCVAR:キャラ番号:行為者 > 0 && TCVAR:キャラ番号:行為者 != キャラ番号 && CFLAG:キャラ番号:勃起条件_キャラ == TCVAR:キャラ番号:行為者
+		;好感度をキャラ別にしたら、正しく好感度依存にしたいですね
+		勃起上限 = MAX(MAXBASE:キャラ番号:勃起, MAXBASE:キャラ番号:勃起+ABL:(TCVAR:キャラ番号:行為者):奉仕精神*50)
+		SIF メッセージ表示
+			PRINTFORML Unlike %CALLNAME:(TCVAR:キャラ番号:行為者)+"'s "+PENIS_APPEAR(TCVAR:キャラ番号:行為者)+", "+CALLNAME:キャラ番号+"'s "+PENIS_APPEAR(キャラ番号)+" seems to be a bit harder than usual."%
 	ELSE
-		�u�N��� = MAXBASE:�L�����ԍ�:�u�N
+		勃起上限 = MAXBASE:キャラ番号:勃起
 	ENDIF
 
-	;���݂̖u�N�l�͖u�N����܂łƂ���
-	BASE:�L�����ԍ�:�u�N = LIMIT(BASE:�L�����ԍ�:�u�N,0,�u�N���)
-	IF CFLAG:�L�����ԍ�:�y�j�X�p�呀�ђ��p == 0 || CFLAG:�L�����ԍ�:�y�j�X�p�呀�ю�� == -1
-		;�呀�т����ĂȂ���΃y�i���e�B�Ȃ��A�ꎞ�I���������l
-		IF BASE:�L�����ԍ�:�u�N >= �u�N���
-			;�ő�܂Ŗu�N���Ă���Ə�������X�ɉ񕜁B
-			SELECTCASE �u�N���
+	;現在の勃起値は勃起上限までとする
+	BASE:キャラ番号:勃起 = LIMIT(BASE:キャラ番号:勃起,0,勃起上限)
+	IF CFLAG:キャラ番号:ペニス用貞操帯着用 == 0 || CFLAG:キャラ番号:ペニス用貞操帯種別 == -1
+		;貞操帯をつけてなければペナルティなし、一時的解除も同様
+		IF BASE:キャラ番号:勃起 >= 勃起上限
+			;最大まで勃起していると上限が徐々に回復。
+			SELECTCASE 勃起上限
 				CASE 1000 TO 2000
-					MAXBASE:�L�����ԍ�:�u�N = MIN(MAXBASE:�L�����ԍ�:�u�N+1,1500)
-					SIF ���b�Z�[�W�\��
-						PRINTFORML %CALLNAME:(�L�����ԍ�)%'s %PENIS_APPEAR(�L�����ԍ�)% is hard enough for insertion!
+					MAXBASE:キャラ番号:勃起 = MIN(MAXBASE:キャラ番号:勃起+1,1500)
+					SIF メッセージ表示
+						PRINTFORML %CALLNAME:(キャラ番号)%'s %PENIS_APPEAR(キャラ番号)% is hard enough for insertion!
 				CASE 400 TO 999
-					MAXBASE:�L�����ԍ�:�u�N = MIN(MAXBASE:�L�����ԍ�:�u�N+1,1500)
-					SIF ���b�Z�[�W�\��
-						PRINTFORML Looks like %CALLNAME:(�L�����ԍ�)%'s %PENIS_APPEAR(�L�����ԍ�)% can't become hard enough yet...
+					MAXBASE:キャラ番号:勃起 = MIN(MAXBASE:キャラ番号:勃起+1,1500)
+					SIF メッセージ表示
+						PRINTFORML Looks like %CALLNAME:(キャラ番号)%'s %PENIS_APPEAR(キャラ番号)% can't become hard enough yet...
 				CASEELSE
-					SIF ���b�Z�[�W�\��
-						PRINTFORML Looks like %CALLNAME:(�L�����ԍ�)%'s %PENIS_APPEAR(�L�����ԍ�)% has lost the ability to stand erect anymore...
+					SIF メッセージ表示
+						PRINTFORML Looks like %CALLNAME:(キャラ番号)%'s %PENIS_APPEAR(キャラ番号)% has lost the ability to stand erect anymore...
 			ENDSELECT
 		ENDIF
-	ELSEIF CFLAG:�L�����ԍ�:�y�j�X�p�呀�ю�� == 1
-		;��ɂ̂Ȃ��呀�ё������B�����Ȃ���
-		�u�N�_���[�W = LIMIT ((BASE:�L�����ԍ�:�u�N-�u�N����)/10,0,100)
-		IF �u�N�_���[�W && ���b�Z�[�W�\��
-			SELECTCASE �u�N�_���[�W
+	ELSEIF CFLAG:キャラ番号:ペニス用貞操帯種別 == 1
+		;苦痛のない貞操帯装着時。窮屈なだけ
+		勃起ダメージ = LIMIT ((BASE:キャラ番号:勃起-勃起制限)/10,0,100)
+		IF 勃起ダメージ && メッセージ表示
+			SELECTCASE 勃起ダメージ
 				CASE IS > 40
 					PRINTFORML %"It's feels extremely tight and cramped inside the chastity belt with this erection..."%
 				CASE IS > 10
@@ -770,30 +770,30 @@ RETURN 0
 			ENDSELECT
 		ENDIF
 	ELSE
-		;��ɂ̂���呀�ё�����
-		;�ꉞ���Z�b�g���Ƃ����B�O���ꂽ��܂��ʂ̃L�����ɂ��肢�ł���悤�ɁB
-		CFLAG:�L�����ԍ�:�u�N����_�L���� = -1
-		CFLAG:�L�����ԍ�:�u�N����_�v���C = -1
-		IF BASE:�L�����ԍ�:�u�N > �u�N����
-			;�呀�т������ԂŖu�N������ɂ��B�������_���[�W�ɂ�����͂���
-			�u�N�_���[�W = LIMIT ((BASE:�L�����ԍ�:�u�N-�u�N����)/10,0,100)
-			IF �u�N�_���[�W && ���b�Z�[�W�\��
-				SELECTCASE �u�N�_���[�W
+		;苦痛のある貞操帯装着時
+		;一応リセットしとこう。外されたらまた別のキャラにお願いできるように。
+		CFLAG:キャラ番号:勃起条件_キャラ = -1
+		CFLAG:キャラ番号:勃起条件_プレイ = -1
+		IF BASE:キャラ番号:勃起 > 勃起制限
+			;貞操帯がある状態で勃起したら痛い。ただしダメージにも上限はある
+			勃起ダメージ = LIMIT ((BASE:キャラ番号:勃起-勃起制限)/10,0,100)
+			IF 勃起ダメージ && メッセージ表示
+				SELECTCASE 勃起ダメージ
 					CASE IS > 40
-						PRINTFORML %"Penis got damaged badly after getting erect so hard inside the chastity belt! (STA-"+TOSTR(�u�N�_���[�W)+", Pain+"+TOSTR(�u�N�_���[�W)+")"%
+						PRINTFORML %"Penis got damaged badly after getting erect so hard inside the chastity belt! (STA-"+TOSTR(勃起ダメージ)+", Pain+"+TOSTR(勃起ダメージ)+")"%
 					CASE IS > 10
-						PRINTFORML %"Penis got damaged after getting erect inside the chastity belt! (STA-"+TOSTR(�u�N�_���[�W)+", Pain+"+TOSTR(�u�N�_���[�W)+")"%
+						PRINTFORML %"Penis got damaged after getting erect inside the chastity belt! (STA-"+TOSTR(勃起ダメージ)+", Pain+"+TOSTR(勃起ダメージ)+")"%
 					CASEELSE
-						PRINTFORML %"Penis got slightly damaged after getting erect inside the chastity belt! (STA-"+TOSTR(�u�N�_���[�W)+", Pain+"+TOSTR(�u�N�_���[�W)+")"%
+						PRINTFORML %"Penis got slightly damaged after getting erect inside the chastity belt! (STA-"+TOSTR(勃起ダメージ)+", Pain+"+TOSTR(勃起ダメージ)+")"%
 				ENDSELECT
 			ENDIF
-			SOURCE:�L�����ԍ�:��� += �u�N�_���[�W
-			BASE:�L�����ԍ�:�̗� -= �u�N�_���[�W
-			BASE:�L�����ԍ�:�u�N = MIN(BASE:�L�����ԍ�:�u�N,�u�N����)
-			;�u�N�������I�ɐ�������ċ����xUP
-			CALL NTR_ADD_SURRENDER(�L�����ԍ�, RAND:5)
-			;�u�N�͏������(���񂾂�u�N�ł��Ȃ��󋵂Ɋ���Ă���)
-			MAXBASE:�L�����ԍ�:�u�N = MAXBASE:�L�����ԍ�:�u�N-(�u�N�_���[�W/5+1)
+			SOURCE:キャラ番号:苦痛 += 勃起ダメージ
+			BASE:キャラ番号:体力 -= 勃起ダメージ
+			BASE:キャラ番号:勃起 = MIN(BASE:キャラ番号:勃起,勃起制限)
+			;勃起を強制的に制限されて屈服度UP
+			CALL NTR_ADD_SURRENDER(キャラ番号, RAND:5)
+			;勃起力上限減少(だんだん勃起できない状況に慣れていく)
+			MAXBASE:キャラ番号:勃起 = MAXBASE:キャラ番号:勃起-(勃起ダメージ/5+1)
 		ENDIF
 	ENDIF
 RETURN 0
